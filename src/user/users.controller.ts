@@ -8,7 +8,7 @@ import {
   Body,
   ParseIntPipe,
   ValidationPipe,
-  UsePipes, Query
+  UsePipes, Query, Req
 } from "@nestjs/common";
 import { CreateUserDto } from "./dtos/create-user.dto";
 import { UpdateUserDto } from "./dtos/update-user.dto";
@@ -16,6 +16,8 @@ import { UserEntity } from "./user.entity";
 import { CustomValidationPipe } from "./pipes/validator.pipe";
 import { UsersService } from "./users.service";
 import { UserResponseDto } from "./dtos/user-response.dto";
+import { Request } from "express";
+
 
 @Controller('users')
 // @UsePipes(ValidationPipe)
@@ -26,7 +28,9 @@ export class UsersController {
 
   // @Query('username', CustomValidationPipe) username: string
   @Get()
-  findAll(): UserEntity[] {
+  async findAll(@Req() req: Request): Promise< UserEntity[]> {
+    console.log(req.body);
+    //await new Promise(resolve => setTimeout(resolve, 5000));
     return this.userService.findUsers();
   }
 
