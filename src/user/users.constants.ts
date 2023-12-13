@@ -1,0 +1,1 @@
+export const userHabits = 'USER_HABITS';
